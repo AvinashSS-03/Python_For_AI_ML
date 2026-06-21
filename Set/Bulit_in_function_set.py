@@ -32,5 +32,5 @@ print(a)
 a.intersection(b)
 print("intersection: ",a)
 
-#differenence:element in the fordst but not the seonccd
+#differenence:element in the first but not the seonccd
 a.difference(b)
