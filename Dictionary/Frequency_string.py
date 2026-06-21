@@ -9,3 +9,4 @@ for ch in n:
         freq[ch]=1
 print(freq)
 
+
