@@ -30,7 +30,7 @@ def single():
             print("Mother's Name: ",self.v)
     obj=student1()
     obj.display("Bhuvana")
-#single()
+single()
 
 '''
 Multilevel inheritance:
@@ -69,5 +69,5 @@ def multilevel():
 
     obj=child()
     obj.display("Bhuvana")
-multilevel()
+#multilevel()
 
