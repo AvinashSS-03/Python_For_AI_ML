@@ -12,5 +12,5 @@ class student:
 name=input("Enter student name: ")
 id=int(input("Enter student id: "))
 
-obj=student(name,id)
-obj.display()
+ob=student(name,id)    #object created
+ob.display()
