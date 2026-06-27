@@ -28,9 +28,9 @@ d.write("extension concept")
 d.close()
 #create a csv file
 
-r=open("test2.csv",'x')
-r.write("Extension concpet creating csv file")
-r.close()
+f=open("test2.csv",'x')
+f.write("Extension concpet creating csv file")
+f.close()
 
 print(a.mode)
 print(a.name)
