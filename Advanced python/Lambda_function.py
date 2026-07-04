@@ -11,3 +11,7 @@ print(square(4))
 square=lambda x:x*x
 print(square(5))
 
+#lambdaa function to return a+b
+
+add=lambda a,b:a+b
+print(add(2,3))
