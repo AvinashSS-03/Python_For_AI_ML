@@ -50,12 +50,12 @@ Sys argv
    sys.argv[1]	first argument
    sys.argv[2]	second argument
 """
-import sys
+""" import sys
 
 f = int(sys.argv[1])
 e = int(sys.argv[2])
 
-print(f+e)
+print(f+e) """
 
 """So this can be used for automation like python filename datasset.csv if we give it will automatically take all the inputs from csv file"""
 
@@ -76,3 +76,7 @@ String:
    .alnum -->check alphanumeric
    
    """
+
+r=10
+r="Avinash"
+print(r)
