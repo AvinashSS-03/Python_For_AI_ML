@@ -9,3 +9,6 @@ Button(text="Click",command=greet).place(x=65,y=63)
 Button(text="Exit",command=quit).place(x=25,y=93)
 
 root.mainloop()
+
+
+# we can destroy to close the window permenately root.destroy()
