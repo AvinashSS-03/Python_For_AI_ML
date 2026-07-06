@@ -5,8 +5,8 @@ from tabnanny import check
 from tkinter import *
 
 root=Tk()
-var1="Python"
-Checkbutton(root,text="python",variable=var1).place(x=55,y=99)
-var2="Java"
+var1=BooleanVar()
+Checkbutton(root,text="py",variable=var1).place(x=55,y=99)
+var2=BooleanVar()
 Checkbutton(root,text="Java",variable=var2).place(x=55,y=199)
 root.mainloop()
