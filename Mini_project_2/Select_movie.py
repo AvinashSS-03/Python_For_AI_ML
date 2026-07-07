@@ -7,6 +7,7 @@ from tkinter import messagebox
 
 root=Tk()
 movie=[]
+selected_seat=[]
 Label(text="Welcome to Movie ticket booking system",fg="black",bg="yellow",font=("Times New Roman",30,"bold")).place(x=500,y=100)
 Label(text="Select Movie",fg="black",bg="yellow",font=("Times New Roman",15,"bold")).place(x=650,y=200)
 Label(text="Select Theater",fg="black",bg="yellow",font=("Times New Roman",15,"bold")).place(x=650,y=300)
@@ -81,6 +82,42 @@ def confirm_timing():
 Button(text="Confirm",command=confirm_timing).place(x=800,y=640)
 def movieticket():
     Label(root,text="Confirm the details: \n " + "\n".join(movie)).place(x=600,y=600)
+    def book():
+        root.destroy()
+        c=Tk()
+        Label(text="Billing",fg="black",bg="yellow",font=("Times New Roman",30,"bold")).place(x=500,y=100)
+        Label(text="Select Tickets", fg="black", bg="yellow",
+              font=("Times New Roman", 30, "bold")).place(x=500, y=100)
+
+        def selecte_seat(button,seat):
+            if seat in selected_seat:
+                selected_seat.remove(seat)
+                button.config(bg="SystemButtonFace")
+            else:
+                selected_seat.append(seat)
+                button.config(bg="green")
+        rows=["A","B","C","D","E","F","G","H","I","J"]
+        x = 500
+        y = 200
+        for i,rows in enumerate(rows):
+            x=500
+            for col in range(1,9):
+                seat=f"{rows}{col}"
+
+                btn=Button(c,text=seat,width=4)
+                btn.config(command=lambda b=btn,s=seat:selecte_seat(b,s))
+
+                btn.place(x=x,y=y)
+                x+=50
+            y+=50
+        def confirm_ticket():
+            Label(c,text="The selected seats are "+"-".join(selected_seat)).place(x=700,y=400)
+        Button(text="Confirm",command=confirm_ticket).place(x=900,y=700)
+        c.geometry("1920x1080")
+        c.title("")
+        c.mainloop()
+
+    Button(text="Book tickets",command=book).place(x=700,y=700)
 Button(text="CONFIRM MOVIE TICKET DETAILS",command=movieticket).place(x=800,y=740)
 root.geometry("1920x1080")
 root.title("MovieBooking")
