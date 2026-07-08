@@ -1,11 +1,20 @@
-
 from tkinter import *
 import sqlite3
-com=sqlite3.connect("Movie")
-cur=com.cursor()
-#select movie ,theater ,showtimes
+
+com = sqlite3.connect("DataBase")
+cur = com.cursor()
+# select movie ,theater ,showtimes
 from tkinter import messagebox
+import Payment
+import Data
+
+
+
+
+
+
 def open_movie():
+
     root=Tk()
     movie=[]
     selected_seat=[]
@@ -13,15 +22,16 @@ def open_movie():
     Label(text="Select Movie",fg="black",bg="yellow",font=("Times New Roman",15,"bold")).place(x=650,y=200)
     Label(text="Select Theater",fg="black",bg="yellow",font=("Times New Roman",15,"bold")).place(x=650,y=300)
     Label(text="Select ShowTimes",fg="black",bg="yellow",font=("Times New Roman",15,"bold")).place(x=650,y=450)
-
+    seat_string=""
     bahubali=BooleanVar()
     Checkbutton(root,text="BAHUBALI",variable=bahubali).place(x=800,y=200)
     kgf=BooleanVar()
     Checkbutton(root,text="KGF",variable=kgf).place(x=800,y=220)
     Avengers=BooleanVar()
     Checkbutton(root,text="AVENGERS",variable=Avengers).place(x=800,y=240)
+    r=""
     def confirm():
-        r=""
+
         if bahubali.get():
             movie.append("BAHUBALI")
             r="bahubali"
@@ -35,9 +45,12 @@ def open_movie():
             r="Avengers"
         if r!="":
             messagebox.showinfo("Succesfull","The movie selected are: "+ r)
+
         else:
             messagebox.showinfo("unsuccesfull","Click correct movie")
         Label(root,text="The Movie You Selected:  "+r).place(x=1050,y=260)
+        Data.movie=r
+
 
     Button(text="Confirm",command=confirm).place(x=800,y=260)
 
@@ -57,6 +70,8 @@ def open_movie():
             messagebox.showinfo("Succesfull","you selected "+theater.get())
 
         Label(root,text="The Theater:  " + theater.get() ).place(x=1050,y=460)
+        Data.theater=theater.get()
+
 
     Button(text="Confirm",command=confirm_theater).place(x=800,y=420)
 
@@ -78,6 +93,8 @@ def open_movie():
         else:
             messagebox.showinfo("Succesfull","you selected "+Showtiming.get())
             Label(root,text="The timing You Selected:  "+ Showtiming.get()).place(x=1050,y=660)
+            Data.timing=Showtiming.get()
+
 
     Button(text="Confirm",command=confirm_timing).place(x=800,y=640)
     def movieticket():
@@ -96,32 +113,48 @@ def open_movie():
             else:
                 selected_seat.append(seat)
                 button.config(bg="green")
-            rows=["A","B","C","D","E","F","G","H","I","J"]
-            x = 500
-            y = 200
-            for i,rows in enumerate(rows):
-                x=500
-                for col in range(1,9):
-                    seat=f"{rows}{col}"
+        rows=["A","B","C","D","E","F","G","H","I","J"]
+        x = 500
+        y = 200
+        for i,rows in enumerate(rows):
+            x=500
+            for col in range(1,9):
+                seat=f"{rows}{col}"
 
-                    btn=Button(c,text=seat,width=4)
-                    btn.config(command=lambda b=btn,s=seat:selecte_seat(b,s))
+                btn=Button(c,text=seat,width=4)
+                btn.config(command=lambda b=btn,s=seat:selecte_seat(b,s))
 
-                    btn.place(x=x,y=y)
-                    x+=50
-                y+=50
+                btn.place(x=x,y=y)
+                x+=50
+            y+=50
         def confirm_ticket():
             Label(c,text="The selected seats are "+"-".join(selected_seat)).place(x=950,y=500)
             Label(c,text="The Movie Details:"+"\n".join(movie)).place(x=950,y=550)
-            Button(text="Confirm",command=confirm_ticket).place(x=900,y=700)
+            Amount=len(selected_seat)*100
+            Data.Amount=Amount
+            Data.selected_seat= selected_seat
+
+
+
+            def payment():
+                c.destroy()
+                Payment.payment_now()
+
+            Button(text="Go for Payment", command=payment).place(x=950, y=650)
+        Button(text="Confirm",command=confirm_ticket).place(x=900,y=700)
+        Button(text="Confirm", command=confirm_ticket).place(x=900, y=700)
+
+
         c.geometry("1920x1080")
         c.title("")
         c.mainloop()
 
     Button(text="Book tickets",command=book).place(x=700,y=700)
-    Button(text="CONFIRM MOVIE TICKET DETAILS",command=movieticket).place(x=800,y=740)
+
+
+
     root.geometry("1920x1080")
     root.title("MovieBooking")
     root.mainloop()
 
-open_movie()
+
