@@ -34,11 +34,56 @@ System calculates total and shows summary. ( Labels)
 On confirm, details stored in SQLite database.
 """
 import sqlite3
-
+import Data
 com=sqlite3.connect('DataBase')
 cur=com.cursor()
-cur.execute("Create table If not exists Database( name varchar(100),Password varchar(100))")
-cur.execute("select * from DataBase")
-for i in cur:
-    print(i)
-print("hello")
+
+cur.execute("""
+Create table If not exists Users( 
+    user_id Integer Primary Key Autoincrement,
+    name varchar(100),
+    password varchar(100)
+    )
+    """)
+cur.execute("""
+Create table If not exists Database( 
+    booking_id integer primary key Autoincrement,
+    user_id Integer,
+    selected_movie varchar(100),
+    selected_theater varchar(100),
+    selected_timing varchar(100),
+    selected_seat varchar(100),
+    total_rupees integer,
+    Foreign Key(user_id) references Users(user_id)
+    
+    )
+    """)
+
+cur.execute("""
+INSERT INTO Database
+(user_id,selected_movie,
+ selected_theater, selected_timing,
+ selected_seat, total_rupees)
+VALUES (?, ?, ?, ?, ?, ?)
+""", (
+    Data.user_id,
+    Data.movie,
+    Data.theater,
+    Data.timing,
+    ",".join(Data.selected_seat),
+    Data.Amount
+))
+cur.execute("""
+SELECT
+    Users.user_id,
+    Users.name,
+    Users.password,
+    Database.selected_movie,
+    Database.selected_theater,
+    Database.selected_timing,
+    Database.selected_seat,
+    Database.total_rupees
+FROM Users
+INNER JOIN Database
+ON Users.user_id = Database.user_id
+""")
