@@ -3,8 +3,7 @@ import sqlite3
 from tkinter import messagebox
 import Select_movie
 import Data
-com=sqlite3.connect('DataBase')
-cur=com.cursor()
+import Movie_Ticket_booking_system
 
 def open_login():
     root=Tk()
@@ -22,13 +21,13 @@ def open_login():
     def submit():
         user=Name.get()
         pas=password.get()
-        cur.execute("select name,password from Users where name=? and Password=?",(user,pas))
-        u=cur.fetchall()
-        t=cur.fetchone()
+        Movie_Ticket_booking_system.cur.execute("select user_id, name,password from Users where name=? and Password=?",(user,pas))
+        t=Movie_Ticket_booking_system.cur.fetchone()
         if t:
             user_id=t[0]
             Data.user_id=user_id
-        if u:
+            Data.username=t[1]
+            Data.password=t[2]
             root.destroy()
             Select_movie.open_movie()
         else:
@@ -51,7 +50,7 @@ def open_login():
         def create_account():
             username=Name.get()
             u_password=Password.get()
-            cur.execute("""
+            Movie_Ticket_booking_system.cur.execute("""
             INSERT INTO Users
             (name,password)
             VALUES (?, ?)
@@ -59,6 +58,7 @@ def open_login():
                 username,
                 u_password
             ))
+            Movie_Ticket_booking_system.com.commit()
 
 
             messagebox.showinfo("Success", "Account created successfully!")
