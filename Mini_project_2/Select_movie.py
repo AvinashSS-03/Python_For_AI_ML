@@ -1,12 +1,11 @@
+from pickle import GLOBAL
 from tkinter import *
 import sqlite3
-
-com = sqlite3.connect("DataBase")
-cur = com.cursor()
 # select movie ,theater ,showtimes
 from tkinter import messagebox
 import Payment
 import Data
+import Movie_Ticket_booking_system
 
 
 
@@ -31,7 +30,7 @@ def open_movie():
     Checkbutton(root,text="AVENGERS",variable=Avengers).place(x=800,y=240)
     r=""
     def confirm():
-
+        global r
         if bahubali.get():
             movie.append("BAHUBALI")
             r="bahubali"
@@ -157,4 +156,4 @@ def open_movie():
     root.title("MovieBooking")
     root.mainloop()
 
-
+open_movie()
